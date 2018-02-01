@@ -1,0 +1,144 @@
+<html>
+	<head>
+		<style>
+			button{
+				
+				text-align: center;
+				margin-top: 2%;
+			}
+			.inp{
+				
+				color: firebrick;
+			}
+			.btne{
+				
+				background-color: forestgreen;
+			}
+			.linkedlist{
+				
+				width: 100%;
+				text-align: center;
+				margin-top: 5%;
+				border-style: double;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div class="linkedlist">
+			<p id="linkedlist">value of the tail</p>
+			<input id="linkadd" class="linkadd" value="" placeholder="value of the head">
+			<button class="btne" onclick="hkn()">add to the head of the list</button>
+		</div>
+	</body>
+		<script>
+	
+		function hkn(){
+			
+			var linked = document.getElementById("linkadd").value;
+			
+			if(linked == "" || linked == "undefined" || linked == null){
+				
+				alert("no sir, no! please no!");
+			}
+			
+			else{
+				
+			  var Node = function(value){
+
+			  var node = {};
+
+			  node.value = value;
+			  node.next = null;
+
+			  return node;
+			};
+
+			var LinkedList = function(){
+				
+			  var list = {};
+			  list.head = null;
+			  list.tail = null;
+
+			  var listItems = {};
+			  list.listItems = listItems;
+
+			  var itemCount = 0;
+
+			  list.addToTail = function(value){
+				  
+				var newNode = new Node();
+				newNode.value = value;
+
+				listItems[itemCount] = newNode;
+				list.tail = newNode;
+
+				//first node
+				if(list.head == null){
+				  list.head = newNode;
+				} else {
+				  listItems[itemCount-1].next = itemCount;
+				}
+
+				itemCount++;
+			  };
+
+			  list.removeHead = function(){
+				  
+				delete listItems[0];
+				for(var i = 0; i < itemCount; i++){
+					
+				  if(i == itemCount - 1){
+					break;
+				  } else {
+					listItems[i] = listItems[i+1];
+					if(listItems[i].next !== null){
+						
+					  listItems[i].next -= 1;
+					}
+					delete listItems[i+1];
+				  }
+				}
+				itemCount--;
+				list.head = listItems[0];
+				list.tail = listItems[itemCount-1];
+			  };
+
+			  list.contains = function(target){
+
+				for(var i = 0; i < itemCount; i++){
+					
+				  if(listItems[i].value === target){
+					  
+					return true;
+				  }
+				}
+
+				return false;
+			  };
+
+			  return list;
+			};
+
+			//logs
+			var myList = new LinkedList();
+
+			myList.removeHead();
+			myList.addToTail(linked);
+			myList.addToTail(20);
+
+			console.log(myList.head.value);
+			document.getElementById("linkedlist").innerHTML = myList.tail.value;
+			  
+		}
+
+		}
+	</script>
+</html>
+
+
+
+
+
+
+
